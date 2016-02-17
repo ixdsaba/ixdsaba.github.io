@@ -178,8 +178,8 @@ WebVRConfig = {
 
 			function init() {
 
-				container = document.createElement( 'div' );
-				document.body.appendChild( container );
+//				container = document.createElement( 'div' );
+//				document.body.appendChild( container );
 				renderer = new THREE.WebGLRenderer({ antialias: true });//, alpha: true 		
 				renderer.setPixelRatio( window.devicePixelRatio );
 				document.body.appendChild(renderer.domElement);// Append the canvas element created by the renderer to document body element.
@@ -330,9 +330,10 @@ WebVRConfig = {
 			}
 
 	
-    function animate() {
+    function animate(timestamp) {
 		requestAnimationFrame( animate );
 		render();
+        manager.render(scene, camera, timestamp);// Render the scene through the manager.
 	}
     
 
@@ -369,7 +370,6 @@ WebVRConfig = {
 		water.render();
 		controls.update();// Update VR headset position and apply to camera.
 		renderer.render( scene, camera);
-		manager.render(scene, camera, timestamp);// Render the scene through the manager.
 		}
         
       function waterMovt(){
@@ -403,18 +403,17 @@ WebVRConfig = {
     
     function autoSkyboxChange(){
         //lightIntensity = 0; //LIGHTINTERPOLATION
-            if(currentSkyBoxTexture==0){//at the first position, gouparray is true
+        if(currentSkyBoxTexture==0){//at the first position, gouparray is true
               goUpArray = true;
             }
-            if (currentSkyBoxTexture==skyTexture.length-1){ //at the last position it is false
-                  goUpArray=false;
+        if(currentSkyBoxTexture==skyTexture.length-1){ //at the last position it is false
+               goUpArray=false;
             }
-        
-          if (goUpArray){ 
-                makeSkybox (skyTexture[currentSkyBoxTexture]);//keep them looping forward as long as gouparray is true
+        if(goUpArray){ 
+               makeSkybox (skyTexture[currentSkyBoxTexture]);//keep them looping forward as long as gouparray is true
                currentSkyBoxTexture++;
-                    }
-          else {
+            }
+        else{
                makeSkybox (skyTexture[currentSkyBoxTexture]);//when it is false, move backwards
                currentSkyBoxTexture--;
             }
@@ -423,13 +422,11 @@ WebVRConfig = {
         //lightIntensity =1;
     }
     
-    
    function onKey(event) {
 	  if (event.keyCode == 90) { // z
 	    controls.resetSensor();
-    
 	  }
-}
+   }
 
 
 window.addEventListener('keydown', onKey, true);
