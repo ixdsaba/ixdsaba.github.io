@@ -137,7 +137,7 @@ WebVRConfig = {
 			
 			var spheresSnow = [];
 			var sphereSnow;
-
+           // var lightIntensity; //LIGHTINTERPOLATION
 
             
 //skybox___________________________________________
@@ -204,7 +204,7 @@ WebVRConfig = {
 // Light_________________
 
 				scene.add( new THREE.AmbientLight( 0x444444 ) );
-				light = new THREE.DirectionalLight( 0xffffbb, 1 );
+				light = new THREE.DirectionalLight( 0xffff00, 1 );
 				light.position.set( - 1, 1, - 1 );
 				scene.add( light );
 				
@@ -288,13 +288,10 @@ WebVRConfig = {
 				loader = new THREE.ImageLoader();
 				loader.load( skyTex, function ( image ) {
 					var getSide = function ( x, y ) {
-
 						var size = 1024;
-
 						var canvas = document.createElement( 'canvas' );
 						canvas.width = size;
 						canvas.height = size;
-
 						var context = canvas.getContext( '2d' );
 						context.drawImage( image, - x * size, - y * size );
 						return canvas;
@@ -342,19 +339,29 @@ WebVRConfig = {
 	function render() {
 //________ SNOW
 	var timerSnow = 0.0001 * Date.now();
-
 		for ( var i = 0, il = spheresSnow.length; i < il; i ++ ) {
-
 		sphereSnow = spheresSnow[ i ];
-
 		sphereSnow.position.x += 0.005 * Math.cos(1000 * timerSnow);
 		sphereSnow.position.y = -30000 * Math.tan(timerSnow - i);
 		sphereSnow.position.z += Math.sin(timerSnow + sphereSnow.position.x) * 0.25;
 					
 	}
         
-// Sphere bob movement___________________________________
         var time = performance.now() * 0.0005;
+//LIGHT INTERPOLATION____________________________________________________________
+//        var factor = 0.001;
+//        var lightValue;
+//        
+//        if(lightIntensity==0){
+//            if(lightValue >= 0){
+//                lightValue-=factor;
+//            }
+//            else if (lightValue<=1){
+//                lightValue+=factor;
+//            }
+//        }
+        
+       // light.intensity = lightValue;
         sphere.position.y = Math.sin( time * 2 ) * 40;
         sphere.position.x = 25000;
         sphere.position.z = 20000;
@@ -362,7 +369,7 @@ WebVRConfig = {
 		water.render();
 		controls.update();// Update VR headset position and apply to camera.
 		renderer.render( scene, camera);
-		//manager.render(scene, camera, timestamp);// Render the scene through the manager.
+		manager.render(scene, camera, timestamp);// Render the scene through the manager.
 		}
         
       function waterMovt(){
@@ -395,8 +402,7 @@ WebVRConfig = {
     
     
     function autoSkyboxChange(){
-        
-       // setTimeout("autoSkyboxChange()", 5000);
+        //lightIntensity = 0; //LIGHTINTERPOLATION
             if(currentSkyBoxTexture==0){//at the first position, gouparray is true
               goUpArray = true;
             }
@@ -412,9 +418,10 @@ WebVRConfig = {
                makeSkybox (skyTexture[currentSkyBoxTexture]);//when it is false, move backwards
                currentSkyBoxTexture--;
             }
-            setTimeout("autoSkyboxChange()", 5000);
+        setTimeout("autoSkyboxChange()", 5000);
         console.log(currentSkyBoxTexture);
-      }
+        //lightIntensity =1;
+    }
     
     
    function onKey(event) {
