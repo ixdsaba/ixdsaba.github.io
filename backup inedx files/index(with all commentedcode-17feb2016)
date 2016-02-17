@@ -138,9 +138,21 @@ WebVRConfig = {
 			var spheresSnow = [];
 			var sphereSnow;
 
+			//Cloud (fog particle)______________________________
 
-            
-//skybox___________________________________________
+//			var meshCloud, geometryCloud, materialCloud;
+//			var start_time = Date.now ();
+//
+//			var fog;
+//
+//			var cloudObjects = [];
+    //-----------------------------------
+            // var spheresCloud = [];
+            // //var spheresCloud2 = [];
+            // var timeCloud = 0.0001 * Date.now();
+         
+
+			//skybox___________________________________________
 
 			var skyBox;
 			var currentSkyBoxTexture = 0;
@@ -149,16 +161,34 @@ WebVRConfig = {
 
 			var skyBoxes = [];
 			var skyTexture = [
+//			'ColumbiaGlacierSkybox2015text.jpg',
 			 'ColumbiaGlacierSkybox2015text.jpg',
 			 'ColumbiaGlacierSkybox2005text.jpg',
 			 'ColumbiaGlacierSkybox2000text.jpg',
 			 'ColumbiaGlacierSkybox1995text.jpg',
 			 'ColumbiaGlacierSkybox1990text.jpg',
 			 'ColumbiaGlacierSkybox1985text.jpg'
+			 // 'ColumbiaGlacierSkyboxImages/ColumbiaGlacierSkybox1985b.jpg',
+			 // 'ColumbiaGlacierSkyboxImages/ColumbiaGlacierSkybox2015b.jpg',
+			 // 'ColumbiaGlacierSkyboxImages/ColumbiaGlacierSkybox1985b.jpg',
+			 // 'ColumbiaGlacierSkyboxImages/ColumbiaGlacierSkybox1985b.jpg'
 			  ];
 
 
-		
+			// skyTexture[0] = new Image();
+			// skyTexture[0].src = "GlacierSkyboxTextures/ColumbiaGlacierSkyboxTexture1.png";
+
+			// skyTexture[1] = new Image();
+			// skyTexture[1].src = "GlacierSkyboxTextures/ColumbiaGlacierSkyboxTexture2.png";
+
+			// skyTexture[2] = new Image();
+			// skyTexture[2].src = "GlacierSkyboxTextures/ColumbiaGlacierSkyboxTexture3.png";
+
+			// skyTexture[3] = new Image();
+			// skyTexture[3].src = "GlacierSkyboxTextures/ColumbiaGlacierSkyboxTexture4.png";
+
+			//var texturesLoaded = 0;
+
 //Water_____________________
 
 			var parameters = {
@@ -209,7 +239,78 @@ WebVRConfig = {
 				light.position.set( - 1, 1, - 1 );
 				scene.add( light );
 				
-// Snow ______________________________
+
+//Clouds_____________________
+				// var canvas = document.createElement( 'canvas' );
+				// canvas.width = size;
+				// canvas.height = size;
+
+				// var context = canvas.getContext( '2d' );
+				// var gradient = context.createLinearGradient( 0, 0, 0, canvas.height );
+				// gradient.addColorStop(0, "#1e4877");
+				// gradient.addColorStop(0.5, "#4584b4");
+				// context.fillStyle = gradient;
+				// context.fillRect(0, 0, canvas.width, canvas.height);
+//----------------------------------------------------------
+//				geometryCloud = new THREE.Geometry();
+//				
+//				var textureCloud = THREE.ImageUtils.loadTexture( 'textures/cloud10.png', null, animate );
+//					textureCloud.magFilter = THREE.LinearMipMapLinearFilter;
+//
+//					fog = new THREE.Fog( 0xd3d3d3 );
+//					material = new THREE.ShaderMaterial( {
+//					uniforms: {
+//					"map": { type: "t", value: textureCloud },
+//					"fogColor" : { type: "c", value: fog.color },
+//					"fogNear" : { type: "f", value: fog.near },
+//					"fogFar" : { type: "f", value: fog.far },
+//					},
+//
+//					vertexShader: document.getElementById( 'vs' ).textContent,
+//					fragmentShader: document.getElementById( 'fs' ).textContent,
+//					depthWrite: false,
+//					depthTest: false,
+//					transparent: true
+//					} );
+//
+//				var plane = new THREE.Mesh( new THREE.PlaneGeometry( 50000,  50000) );
+//					for ( var i = 0; i < 8; i++ ) {
+//						plane.position.x = Math.random() * 2000000;
+//						plane.position.y = 200000 ;
+//						plane.position.z = i;
+//						plane.rotation.x = Math.PI * 0.5;
+//                        //plane.rotation.z = -0.5;
+//                        plane.rotation.y = 1;
+//                    
+//						//plane.scale.x = plane.scale.y = Math.random() * Math.random() * 1.5 + 0.2;
+//						THREE.GeometryUtils.merge( geometryCloud, plane );
+//					}
+//
+//					meshCloud = new THREE.Mesh( geometryCloud, material );
+//					scene.add( meshCloud );
+//
+//					cloudObjects.push(meshCloud);
+//------------------------------------------------------------------
+                
+    //             var loaderClouds = new THREE.TextureLoader();
+    //             loaderClouds.load( 'cloud10.png', function(texture){
+                    
+    //                 var geometry = new THREE.SphereBufferGeometry( 400, 20, 15 );
+    //                 var materialSnow = new THREE.MeshBasicMaterial( { map: texture, overdraw: 0.5, transparent: true, opacity: 0.5, color: 0xffffff } );
+    //                 for ( var i = 0; i < 100; i ++ ) {
+				// 	var mesh = new THREE.Mesh( geometry, materialSnow );
+				// 	mesh.position.x = Math.random() * (70000)-35000;
+				// 	mesh.position.y = Math.random() * 10000 - 5000;
+				// 	mesh.position.z = Math.random() * (70000)-35000;
+				// 	mesh.scale.x = mesh.scale.y = mesh.scale.z = Math.random() * 10;
+    //                 mesh.rotation.x = 0.7;
+					
+    //                 scene.add( mesh );
+    //                 spheresCloud.push( mesh );
+				// }
+    //             });
+
+		// Snow ______________________________
 //					var geometrySnow = new THREE.SphereBufferGeometry( 5, 32, 12 );
 //
 //					var materialSnow = new THREE.MeshBasicMaterial( { color: 0xEDF4F8, 
@@ -274,7 +375,7 @@ WebVRConfig = {
 //skybox___________________________
                 	
                 autoSkyboxChange();
-				//makeSkybox (skyTexture[currentSkyBoxTexture]);
+				makeSkybox (skyTexture[currentSkyBoxTexture]);
                 
 		}
 
@@ -334,14 +435,42 @@ WebVRConfig = {
 			}
 
 	
-    function animate() {
+    function animate(timestamp) {
 		requestAnimationFrame( animate );
 		render();
 	}
     
 
 	function render() {
-//________ SNOW
+	
+	//_________ Cloud render
+
+//	for ( var i = 0, il = cloudObjects.length; i < il; i ++ ) {
+//		cloudObject = cloudObjects [i];
+//
+//		var positionCloud = ( ( Date.now() - start_time ) * 0.03 ) ;
+//		
+//		cloudObject.position.x =+ positionCloud*10;
+//		cloudObject.position.y = 10000;
+//		cloudObject.position.z = 300;
+//		}
+        
+        
+
+	//_________ Cloud sep camera/
+		// position = ( ( Date.now() - start_time ) * 0.03 ) % 8000;
+		// 		cameraCloud.position.x += (  cameraCloud.position.x );
+		// 		cameraCloud.position.y = -300;
+		// 		cameraCloud.position.z = - position + 8000;
+
+// ``     
+// 				for ( var i = 0, il = spheresCloud.length; i < il; i ++ ) {
+// 					var spherecl = spheresCloud[ i ];
+//                 	spherecl.position.x += 1 * Math.sin(timeCloud + i);
+// 					spherecl.position.y =20000;   
+// 				}
+
+ 	//________ SNOW
 //	var timerSnow = 0.0001 * Date.now();
 //
 //		for ( var i = 0, il = spheresSnow.length; i < il; i ++ ) {
@@ -355,17 +484,20 @@ WebVRConfig = {
 //	}
         
 // Sphere bob movement___________________________________
-        var time = performance.now() * 0.0008;
+        var time = performance.now() * 0.001;
         sphere.position.y = Math.sin( time * 2 ) * 40;
         sphere.position.x = 25000;
         sphere.position.z = 20000;
+
         waterMovt();
 		water.render();
 		controls.update();// Update VR headset position and apply to camera.
 		renderer.render( scene, camera);
-		//manager.render(scene, camera, timestamp);// Render the scene through the manager.
+		manager.render(scene, camera, timestamp);// Render the scene through the manager.
+
 		}
         
+
       function waterMovt(){
                     if(currentSkyBoxTexture==0){
                         water.material.uniforms.time.value +=0.4;
@@ -416,6 +548,7 @@ WebVRConfig = {
             setTimeout("autoSkyboxChange()", 5000);
         console.log(currentSkyBoxTexture);
       }
+    
     
    function onKey(event) {
 	  if (event.keyCode == 90) { // z
