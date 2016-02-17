@@ -333,11 +333,10 @@ WebVRConfig = {
     function animate() {
 		requestAnimationFrame( animate );
 		render();
-       // manager.render(scene, camera, timestamp);// Render the scene through the manager.
 	}
     
 
-	function render() {
+	function render(timestamp) {
 //________ SNOW
 	var timerSnow = 0.0001 * Date.now();
 		for ( var i = 0, il = spheresSnow.length; i < il; i ++ ) {
@@ -370,6 +369,7 @@ WebVRConfig = {
 		water.render();
 		controls.update();// Update VR headset position and apply to camera.
 		renderer.render( scene, camera);
+        manager.render(scene, camera, timestamp);// Render the scene through the manager.
 		}
         
       function waterMovt(){
