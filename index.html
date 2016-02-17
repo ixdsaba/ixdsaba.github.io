@@ -126,7 +126,7 @@ WebVRConfig = {
 			// }
 
 			var container, stats;
-			var camera, controls, manager, effect, scene, renderer;
+			var camera, controls, manager, effect, scene, renderer,light;
 			
 			//sphere______________________________
 			var sphere;
@@ -149,16 +149,15 @@ WebVRConfig = {
 
 			var skyBoxes = [];
 			var skyTexture = [
-			 'ColumbiaGlacierSkybox2015text.jpg',
-			 'ColumbiaGlacierSkybox2005text.jpg',
-			 'ColumbiaGlacierSkybox2000text.jpg',
-			 'ColumbiaGlacierSkybox1995text.jpg',
-			 'ColumbiaGlacierSkybox1990text.jpg',
-			 'ColumbiaGlacierSkybox1985text.jpg'
+			 'ColumbiaGlacierSkybox2015textWeb.jpg',
+			 'ColumbiaGlacierSkybox2005textWeb.jpg',
+			 'ColumbiaGlacierSkybox2000textWeb.jpg',
+			 'ColumbiaGlacierSkybox1995textWeb.jpg',
+			 'ColumbiaGlacierSkybox1990textWeb.jpg',
+			 'ColumbiaGlacierSkybox1985textWeb.jpg'
 			  ];
 
-
-		
+    
 //Water_____________________
 
 			var parameters = {
@@ -192,8 +191,8 @@ WebVRConfig = {
 		
                 
 //Audio------------------------------
-//                var audio = new Audio('Glacier Soundtrack.wav');
-//                audio.play();
+                var audio = new Audio('Glacier Soundtrack.wav');
+                audio.play();
 // VR___________________________//controls VR etc.
 				controls = new THREE.VRControls(camera);
 				effect = new THREE.VREffect(renderer);
@@ -205,33 +204,33 @@ WebVRConfig = {
 // Light_________________
 
 				scene.add( new THREE.AmbientLight( 0x444444 ) );
-				var light = new THREE.DirectionalLight( 0xffffbb, 1 );
+				light = new THREE.DirectionalLight( 0xffffbb, 1 );
 				light.position.set( - 1, 1, - 1 );
 				scene.add( light );
 				
 // Snow ______________________________
-//					var geometrySnow = new THREE.SphereBufferGeometry( 5, 32, 12 );
-//
-//					var materialSnow = new THREE.MeshBasicMaterial( { color: 0xEDF4F8, 
-//						//envMap: skyTexture[0], 
-//						refractionRatio: 0.95
-//						//transparency : true,
-//						//opacity : 0.25 
-//						} );
-//
-//					for ( var i = 0; i < 3000; i ++ ) {
-//
-//						var meshSnow = new THREE.Mesh( geometrySnow, materialSnow );
-//
-//						meshSnow.position.x = Math.random() * 40000 - 7000;
-//						meshSnow.position.y = Math.random() * 40000 - 10;
-//						meshSnow.position.z = Math.random() * 40000 - 15000;
-//
-//						meshSnow.scale.x = meshSnow.scale.y = meshSnow.scale.z = Math.random() * 3 + 1;
-//
-//						scene.add( meshSnow );
-//						spheresSnow.push( meshSnow );
-//					}				
+					var geometrySnow = new THREE.SphereBufferGeometry( 5, 32, 12 );
+
+					var materialSnow = new THREE.MeshBasicMaterial( { color: 0xEDF4F8, 
+						//envMap: skyTexture[0], 
+						refractionRatio: 0.95
+						//transparency : true,
+						//opacity : 0.25 
+						} );
+
+					for ( var i = 0; i < 3000; i ++ ) {
+
+						var meshSnow = new THREE.Mesh( geometrySnow, materialSnow );
+
+						meshSnow.position.x = Math.random() * 40000 - 7000;
+						meshSnow.position.y = Math.random() * 40000 - 10;
+						meshSnow.position.z = Math.random() * 40000 - 15000;
+
+						meshSnow.scale.x = meshSnow.scale.y = meshSnow.scale.z = Math.random() * 3 + 1;
+
+						scene.add( meshSnow );
+						spheresSnow.push( meshSnow );
+					}				
 
 // Water---------------------------------------------------------
 					waterNormals = new THREE.ImageUtils.loadTexture( 'textures/waternormals.jpg' );
@@ -342,20 +341,20 @@ WebVRConfig = {
 
 	function render() {
 //________ SNOW
-//	var timerSnow = 0.0001 * Date.now();
-//
-//		for ( var i = 0, il = spheresSnow.length; i < il; i ++ ) {
-//
-//		sphereSnow = spheresSnow[ i ];
-//
-//		sphereSnow.position.x += 0.005 * Math.cos(1000 * timerSnow);
-//		sphereSnow.position.y = -30000 * Math.tan(timerSnow - i);
-//		sphereSnow.position.z += Math.sin(timerSnow + sphereSnow.position.x) * 0.25;
-//					
-//	}
+	var timerSnow = 0.0001 * Date.now();
+
+		for ( var i = 0, il = spheresSnow.length; i < il; i ++ ) {
+
+		sphereSnow = spheresSnow[ i ];
+
+		sphereSnow.position.x += 0.005 * Math.cos(1000 * timerSnow);
+		sphereSnow.position.y = -30000 * Math.tan(timerSnow - i);
+		sphereSnow.position.z += Math.sin(timerSnow + sphereSnow.position.x) * 0.25;
+					
+	}
         
 // Sphere bob movement___________________________________
-        var time = performance.now() * 0.0008;
+        var time = performance.now() * 0.0005;
         sphere.position.y = Math.sin( time * 2 ) * 40;
         sphere.position.x = 25000;
         sphere.position.z = 20000;
@@ -396,26 +395,27 @@ WebVRConfig = {
     
     
     function autoSkyboxChange(){
-        for(var i = 0; i <skyTexture.length;i++){
+        
+       // setTimeout("autoSkyboxChange()", 5000);
             if(currentSkyBoxTexture==0){//at the first position, gouparray is true
               goUpArray = true;
             }
             if (currentSkyBoxTexture==skyTexture.length-1){ //at the last position it is false
                   goUpArray=false;
             }
-            }
-
-          if (goUpArray){ //keep them looping forward as long as gouparray is true
-                makeSkybox (skyTexture[currentSkyBoxTexture]);
+        
+          if (goUpArray){ 
+                makeSkybox (skyTexture[currentSkyBoxTexture]);//keep them looping forward as long as gouparray is true
                currentSkyBoxTexture++;
                     }
-          else {//when it is false, move backwards
-               makeSkybox (skyTexture[currentSkyBoxTexture]);
+          else {
+               makeSkybox (skyTexture[currentSkyBoxTexture]);//when it is false, move backwards
                currentSkyBoxTexture--;
             }
             setTimeout("autoSkyboxChange()", 5000);
         console.log(currentSkyBoxTexture);
       }
+    
     
    function onKey(event) {
 	  if (event.keyCode == 90) { // z
@@ -423,7 +423,7 @@ WebVRConfig = {
     
 	  }
 }
-    
+
 
 window.addEventListener('keydown', onKey, true);
 
