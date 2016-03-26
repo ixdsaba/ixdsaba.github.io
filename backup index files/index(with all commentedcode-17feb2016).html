@@ -440,7 +440,6 @@ WebVRConfig = {
 		render();
 	}
     
-
 	function render() {
 	
 	//_________ Cloud render
@@ -488,43 +487,40 @@ WebVRConfig = {
         sphere.position.y = Math.sin( time * 2 ) * 40;
         sphere.position.x = 25000;
         sphere.position.z = 20000;
-
         waterMovt();
 		water.render();
 		controls.update();// Update VR headset position and apply to camera.
 		renderer.render( scene, camera);
 		manager.render(scene, camera, timestamp);// Render the scene through the manager.
-
 		}
-        
+
 
       function waterMovt(){
-                    if(currentSkyBoxTexture==0){
-                        water.material.uniforms.time.value +=0.4;
-                    }
-                    else if(currentSkyBoxTexture==1){
-                         water.material.uniforms.time.value += 0.3;      
-                    }
-                    else if(currentSkyBoxTexture==2){
-                        water.material.uniforms.time.value += 0.2;      
-                    }
-                    else if(currentSkyBoxTexture==3){
-                    water.material.uniforms.time.value += 0.1;      
-                    }
-                    else if(currentSkyBoxTexture==4){
-                        water.material.uniforms.time.value += 0.075;      
-                    }
-                    else if(currentSkyBoxTexture=5){
-                        water.material.uniforms.time.value += 0.05;      
-                    }
-                    else if(currentSkyBoxTexture=6){
-                        water.material.uniforms.time.value += 0.025;      
-                    }
-                    else if(currentSkyBoxTexture=7){
-                        water.material.uniforms.time.value += 0.01; 
-                    }
-                }
-    
+            if(currentSkyBoxTexture==0){
+                water.material.uniforms.time.value +=0.4;
+            }
+            else if(currentSkyBoxTexture==1){
+                 water.material.uniforms.time.value += 0.3;      
+            }
+            else if(currentSkyBoxTexture==2){
+                water.material.uniforms.time.value += 0.2;      
+            }
+            else if(currentSkyBoxTexture==3){
+            water.material.uniforms.time.value += 0.1;      
+            }
+            else if(currentSkyBoxTexture==4){
+                water.material.uniforms.time.value += 0.075;      
+            }
+            else if(currentSkyBoxTexture=5){
+                water.material.uniforms.time.value += 0.05;      
+            }
+            else if(currentSkyBoxTexture=6){
+                water.material.uniforms.time.value += 0.025;      
+            }
+            else if(currentSkyBoxTexture=7){
+                water.material.uniforms.time.value += 0.01; 
+            }
+        }
     
     
     function autoSkyboxChange(){
@@ -554,8 +550,8 @@ WebVRConfig = {
 	  if (event.keyCode == 90) { // z
 	    controls.resetSensor();
     
-	  }
-}
+        }
+     }
     
 
 window.addEventListener('keydown', onKey, true);
